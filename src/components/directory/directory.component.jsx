@@ -2,10 +2,10 @@ import React, {useState} from 'react';
 import MenuItem from '../../components/menu-item/menu-item.component'
 
 import hat from '../../images/menu/hat.svg';
-import jacket from '../../images/menu/jacket.svg';
-import sneaker from '../../images/menu/sneaker.svg';
-import man from '../../images/menu/man.svg';
-import woman from '../../images/menu/woman.svg';
+import jacket from '../../images/menu/jacket.jpg';
+import sneaker from '../../images/menu/sneaker.jpg';
+import man from '../../images/menu/man.jpg';
+import woman from '../../images/menu/woman.jpg';
 
 const Directory = () => {
     const [sections, setSections] = useState([

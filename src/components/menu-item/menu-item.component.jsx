@@ -1,9 +1,10 @@
 import React from 'react';
+import { withRouter } from 'react-router-dom'
 
 import './menu-item.style.css'
 // import './Capture.jpg'
 // 
-const MenuItem = ({title, imageUrl, size}) => {
+const MenuItem = ({title, imageUrl, size, history, match}) => {
     return (
             <div className={`col-md-${size} card menu-item border-primary rounded-0`}
             style={{ 
@@ -15,10 +16,10 @@ const MenuItem = ({title, imageUrl, size}) => {
                 >
                     <h1>{title.toUpperCase()}</h1>
                     <span>
-                        <button className="btn btn-warning w-50">SHOP NOW</button>
+                        <button className="btn btn-warning w-50" onClick={()=> history.push(`${match.url}${title}`)}>SHOP NOW</button>
                     </span>
             </div>
     );
 }
 
-export default MenuItem;
+export default withRouter(MenuItem);
