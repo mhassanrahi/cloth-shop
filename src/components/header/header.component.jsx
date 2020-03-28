@@ -3,11 +3,13 @@ import { Link } from 'react-router-dom';
 
 import './header.style.css';
 import logo from '../../logo.svg'
-import cart from '../../cart.svg'
 
-const Header = () => {
+
+import {auth} from '../../firebase/firebase.utils';
+
+const Header = ({currentUser}) => {
     return (
-        <nav className="navbar white-text navbar-expand-lg navbar-dark indigo">
+        <nav className="navbar white-text mt-0 navbar-expand-lg navbar-dark indigo">
         <Link to='/'>
             <img className="navbar-brand" src={`${logo}`} alt='logo'/>
         </Link>
@@ -30,13 +32,19 @@ const Header = () => {
     </span> */}
     <ul className="navbar-nav ml-auto my-auto">
         <li className="nav-item">
-            <a className="nav-link" >Contact</a>
+            <Link className="nav-link" to="/contact">Contact</Link>
         </li>
         <li className="nav-item">
-            <a className="nav-link" >Sign In</a>
+        {
+          currentUser ?
+          (<Link className="nav-link" onClick={()=> auth.signOut()} >Sign Out</Link>)
+          :
+          (<Link className="nav-link" to="/sign" >Sign In</Link>)
+        }
+            
         </li>
         <li className="nav-item">
-            <a className="nav-link" >Cart(0)</a>
+            <Link className="nav-link" to="/cart" >Cart(0)</Link>
         </li>
         {/* <li className="nav-item">
             <a className="nav-link" > <img className="cart" alt='cart' src={`${cart}`}></img></a>
@@ -45,6 +53,7 @@ const Header = () => {
     </ul>
   </div>
 </nav>
+
 
     );
 }
