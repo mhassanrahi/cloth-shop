@@ -12,47 +12,47 @@ import ShopPage from './pages/shop/shop.component';
 import HomePage from './pages/homepage/homepage.component';
 import SignAndUpPage from './pages/sign-in-and-up-page/sign-in-and-up.component'
 
-//Firebase Auth
-import { auth } from './firebase/firebase.utils';
+//Firebase Utils
+import { auth, createUserProfileDocument } from './firebase/firebase.utils';
 
-const App = () => {
+class App extends React.Component {
 
-  const [currentUser, setCurrentUser] = useState(null);
+  // const [currentUser, setCurrentUser] = useState(null);
 
-  
-  useEffect(() => {
-   
-    const unsubscribeFromAuth = auth.onAuthStateChanged(user =>{
-        setCurrentUser(user)
-      })
-
-      return function cleanup() {
-        unsubscribeFromAuth();
-      };
-  }, [currentUser])
-
-  // state = {
-  //   currentUser: null
-  // }
-
-  // unsubscribeFromAuth = null;
-
-  // componentDidMount() {
-  //   this.unsubscribeFromAuth = auth.onAuthStateChanged(user => {
-  //     this.setState({currentUser: user})
-  //     // console.log(user)
+  // useEffect (() => {
+  //   const unsubscribeFromAuth = auth.onAuthStateChanged(user =>{
+  //     setCurrentUser(user)
+  //     createUserProfileDocument(user)
   //   })
-  // }
 
-  // componentWillUnmount() {
-  //   this.unsubscribeFromAuth();
-  // }
+  //     return function cleanup() {
+  //       unsubscribeFromAuth()
+  //     };
+  // }, [currentUser])
 
-  // render () {
+  state = {
+    currentUser: null
+  }
+
+  unsubscribeFromAuth = null;
+
+  componentDidMount() {
+    this.unsubscribeFromAuth = auth.onAuthStateChanged(async user => {
+      this.setState({currentUser: user})
+      createUserProfileDocument(user)
+      // console.log(user)
+    })
+  }
+
+  componentWillUnmount() {
+    this.unsubscribeFromAuth();
+  }
+
+  render () {
   return (
     <div className="container">
     {/* Header */}
-    <Header currentUser={currentUser}/>
+    <Header currentUser={this.state.currentUser}/>
     {/* Content */}
       <div className="content">
         <Switch>
@@ -68,7 +68,7 @@ const App = () => {
     </div>
     
   );
-  // }
+  }
 }
 
 export default App;
