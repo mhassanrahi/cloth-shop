@@ -15,14 +15,24 @@ import SignAndUpPage from './pages/sign-in-and-up-page/sign-in-and-up.component'
 //Firebase Utils
 import { auth, createUserProfileDocument } from './firebase/firebase.utils';
 
-class App extends React.Component {
+class App extends React.Component{
 
-  // const [currentUser, setCurrentUser] = useState(null);
+  // const [currentUser, setCurrentUser] = useState({});
 
   // useEffect (() => {
-  //   const unsubscribeFromAuth = auth.onAuthStateChanged(user =>{
-  //     setCurrentUser(user)
-  //     createUserProfileDocument(user)
+  //   const unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth =>{
+  //     if (userAuth) {
+  //             const userRef = await createUserProfileDocument(userAuth);
+      
+  //             userRef.onSnapshot(snapShot => {
+  //                 setCurrentUser ({
+  //                   id: snapShot.id,
+  //                   ...snapShot.data()
+  //                 })
+  //             })
+  //           } else {
+  //             setCurrentUser(userAuth);
+  //           }
   //   })
 
   //     return function cleanup() {
@@ -37,10 +47,25 @@ class App extends React.Component {
   unsubscribeFromAuth = null;
 
   componentDidMount() {
-    this.unsubscribeFromAuth = auth.onAuthStateChanged(async user => {
-      this.setState({currentUser: user})
-      createUserProfileDocument(user)
-      // console.log(user)
+    this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
+      if (userAuth) {
+        const userRef = await createUserProfileDocument(userAuth);
+
+        userRef.onSnapshot(snapShot => {
+          // console.log(snapShot.data())
+          this.setState({
+            currentUser: {
+              id: snapShot.id,
+              ...snapShot.data()
+            }
+          });
+          console.log(this.state)
+        })
+
+        
+      } else {
+        this.setState({currentUser: userAuth})
+      }
     })
   }
 

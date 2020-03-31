@@ -3,6 +3,8 @@ import {Link} from 'react-router-dom';
 
 import './sign-in.style.css'
 
+import Button from '../button/button.component';
+
 import useForm from '../custom-hook/useForm';
 import validate from '../custom-hook/validateLogin';
 
@@ -15,7 +17,7 @@ const INITIAL_STATE = {
 const SignIn = () => {
 
   const {handleChange, handleSubmit, userData, errors} = useForm(INITIAL_STATE, validate);
-
+  const {email, password} = userData;
     return(
         
 <div className="card">
@@ -31,7 +33,7 @@ const SignIn = () => {
         name="email"
         className={`form-control ${errors.email && "border-danger"}`}
         placeholder="Email"
-        value={userData.email}
+        value={email}
         onChange={handleChange}
         />
         {errors.email && <div className="font-small text-danger">{errors.email}</div>}
@@ -43,7 +45,7 @@ const SignIn = () => {
           name="password"
           className={`form-control ${errors.password && "border-danger"}`}
           placeholder="Password"
-          value={userData.password}
+          value={password}
           onChange={handleChange}
         />
         {errors.password && <p className="font-small text-danger">{errors.password}</p>}
@@ -52,11 +54,7 @@ const SignIn = () => {
         </div>
       </div>
       
-      <button
-        className="btn btn-outline-indigo btn-rounded btn-block my-4 waves-effect z-depth-0"
-        type="submit"
-        // disabled={isSubmitting}
-      >Sign in</button>
+      <Button type='submit' outline='indigo'>Sign in</Button>
 
       <p>or sign in with:</p>
       <Link type="button" className="btn-floating btn-fb btn-sm">
