@@ -5,8 +5,8 @@ import './sign-in.style.css'
 
 import Button from '../button/button.component';
 
-import useForm from '../custom-hook/useForm';
-import validate from '../custom-hook/validateLogin';
+import useSignIn from '../custom-hook/useSignIn';
+import validate from '../custom-hook/validateSignIn';
 
 import {signInWithGoogle} from '../../firebase/firebase.utils';
 
@@ -16,7 +16,7 @@ const INITIAL_STATE = {
 }
 const SignIn = () => {
 
-  const {handleChange, handleSubmit, userData, errors} = useForm(INITIAL_STATE, validate);
+  const {handleChange, handleSubmit, userData, errors} = useSignIn(INITIAL_STATE, validate);
   const {email, password} = userData;
     return(
         
@@ -27,6 +27,12 @@ const SignIn = () => {
 </h5>
   <div className="card-body px-lg-5">
     <form className="text-center" noValidate onSubmit={handleSubmit}>
+      {
+        errors.wrongCredentials && 
+        <p className="font-small text-danger" role="alert">
+          {errors.wrongCredentials}
+        </p>
+      }
 
       <div className="md-form">
         <input type="email"

@@ -1,5 +1,5 @@
 import React from 'react';
-import useForm from '../custom-hook/useForm';
+import useSignUp from '../custom-hook/useSignUp';
 import validate from '../custom-hook/validateSignUp';
 import Button from '../button/button.component';
 
@@ -10,10 +10,8 @@ const INITIAL_STATE = {
   cPassword: ''
 }
 
-const FORM = 'sign-up';
-
 const SignUp = () => {
-  const {handleChange, handleSubmit, userData, errors} = useForm(INITIAL_STATE, validate, FORM);
+  const {handleChange, handleSubmit, userData, errors} = useSignUp(INITIAL_STATE, validate);
   const {displayName, email, password, cPassword} = userData;
 
 
@@ -27,6 +25,12 @@ const SignUp = () => {
         <div className="card-body px-lg-5">
           <form className="text-center" noValidate onSubmit={handleSubmit}>
 
+          {
+            errors.signUpError && 
+            <p className="font-small text-danger" role="alert">
+              {errors.signUpError}
+            </p>
+          }
             <div className="md-form">
               <input
                 onChange={handleChange}

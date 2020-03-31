@@ -1,13 +1,13 @@
-import {useState, useEffect} from 'react';
+import {useState} from 'react';
 import { auth, createUserProfileDocument } from '../../firebase/firebase.utils';
 
 
-const useForm = (initalState, validate, FORM) => {
+const useForm = (initalState, validate) => {
     const [userData, setUserData] = useState(initalState);
-    const [errors, setErrors] = useState({});
+    const [errors, setErrors] = useState(false);
     const [isSubmitting, setIsSubmitting] = useState(false);
     
-    const {displayName} = userData;
+    const {displayName, email, password} = userData;
     
     const handleChange = event => {
         // destructuring
@@ -24,25 +24,18 @@ const useForm = (initalState, validate, FORM) => {
         setErrors(validate(userData));
         setIsSubmitting(true);
 
+        if (Object.keys(errors).length === 0 && isSubmitting) {
         try {
-          if (FORM === 'sign-up') {
-          const { user } = await auth.createUserWithEmailAndPassword(userData.email, userData.password);
+          const { user } = await auth.createUserWithEmailAndPassword(email, password);
           createUserProfileDocument(user, {displayName})
           setUserData(initalState);
-        }
         } catch (error) {
-          console.error(error);
-          
+          setErrors({
+            signUpError: error.message
+          })
         }
       }
-
-      useEffect(() => {
-        if (Object.keys(errors).length === 0 && isSubmitting) {
-          // handleSubmit()
-        }
-      
-      }, [errors]);
-    
+      }
       
       return {
           userData,
