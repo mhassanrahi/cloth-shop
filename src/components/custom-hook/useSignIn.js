@@ -42,7 +42,7 @@ const useForm = (initalState, validate) => {
 
     // useEffect(() => {
       
-    //     async function submitData() {
+    //     const submitData = async () => {
     //       try {
     //         await auth.signInWithEmailAndPassword(email, password)
     //         setUserData(initalState);

@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
-import {Route, Switch} from 'react-router-dom'
+import {Route, Switch} from 'react-router-dom';
+import { connect } from 'react-redux';
 
 import './App.css';
 
@@ -14,6 +15,10 @@ import SignAndUpPage from './pages/sign-in-and-up-page/sign-in-and-up.component'
 
 //Firebase Utils
 import { auth, createUserProfileDocument } from './firebase/firebase.utils';
+
+// Redux
+
+import {setCurrentUser} from './redux/'
 
 class App extends React.Component{
 
@@ -40,31 +45,26 @@ class App extends React.Component{
   //     };
   // }, [currentUser])
 
-  state = {
-    currentUser: null
-  }
 
   unsubscribeFromAuth = null;
 
   componentDidMount() {
+    const {setCurrentUser} =  this.props;
+
     this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
       if (userAuth) {
         const userRef = await createUserProfileDocument(userAuth);
 
         userRef.onSnapshot(snapShot => {
-          // console.log(snapShot.data())
-          this.setState({
-            currentUser: {
+          setCurrentUser({
               id: snapShot.id,
               ...snapShot.data()
-            }
           });
-          console.log(this.state)
         })
 
         
       } else {
-        this.setState({currentUser: userAuth})
+        setCurrentUser(userAuth)
       }
     })
   }
@@ -77,7 +77,7 @@ class App extends React.Component{
   return (
     <div className="container">
     {/* Header */}
-    <Header currentUser={this.state.currentUser}/>
+    <Header/>
     {/* Content */}
       <div className="content">
         <Switch>
@@ -96,4 +96,9 @@ class App extends React.Component{
   }
 }
 
-export default App;
+const mapDispatchToProps = dispatch => ({
+  setCurrentUser: user => dispatch(setCurrentUser(user))
+})
+
+
+export default connect(null,mapDispatchToProps) (App);
