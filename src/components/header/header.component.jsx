@@ -1,12 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 import './header.style.css';
 import logo from '../../logo.svg'
-
+import CartIcon from '../cart-icon/cart-icon.component';
 
 import {auth} from '../../firebase/firebase.utils';
-import { connect } from 'react-redux';
+
 
 const Header = ({currentUser}) => {
     return (
@@ -31,7 +32,7 @@ const Header = ({currentUser}) => {
     {/* <span className="navbar-text">
       Navbar text with an inline element
     </span> */}
-    <ul className="navbar-nav ml-auto my-auto">
+    <ul className="navbar-nav ml-auto my-auto align-items-md-center">
         <li className="nav-item">
             <Link className="nav-link" to="/contact">Contact</Link>
         </li>
@@ -45,13 +46,13 @@ const Header = ({currentUser}) => {
             
         </li>
         <li className="nav-item">
-            <Link className="nav-link" to="/cart" >Cart(0)</Link>
+          <Link className="nav-link" to="/cart" >
+            <CartIcon />
+          </Link>
+
         </li>
-        {/* <li className="nav-item">
-            <a className="nav-link" > <img className="cart" alt='cart' src={`${cart}`}></img></a>
-        </li> */}
-        {/* <a className="nav-link" > <img className="cart" alt='cart' src={`${cart}`}></img></a> */}
-    </ul>
+        
+      </ul>
   </div>
 </nav>
 
