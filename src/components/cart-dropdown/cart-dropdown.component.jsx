@@ -1,15 +1,37 @@
 import React from 'react';
+import CartItem from '../cart-item/cart-item.component';
+import { connect } from 'react-redux';
 
-const CartDropDown = () => {
+import './cart-dropdown.style.css';
+
+const CartDropDown = ({cartItems}) => {
     return (
-        <div class="dropdown-menu">
-            <a class="dropdown-item" href="#">Action</a>
-            <a class="dropdown-item" href="#">Another action</a>
-            <a class="dropdown-item" href="#">Something else here</a>
-            <div class="dropdown-divider"></div>
-            <button className="btn btn-indigo btn-sm"> Go to checkout</button>
+        <div className="dropdown-menu">
+            <div className="menu">
+                {
+                    cartItems.map(cartItem =>
+                    <CartItem key={cartItem.id} item={cartItem} />
+                    )
+                }
+            </div>
+            {
+                (cartItems.length > 0) ? 
+                (
+                <div>
+                    <div class="dropdown-divider"></div>
+                    <button className="btn btn-indigo btn-sm"> Go to checkout</button>
+                
+                </div>)
+                :
+                <div className="text-center text-danger">Cart is empty.</div>
+            }
+            
         </div>
     )
 }
 
-export default CartDropDown;
+const mapStateToProps = ({cart: {cartItems}}) => ({
+    cartItems
+})
+
+export default connect(mapStateToProps, null)(CartDropDown);
