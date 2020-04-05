@@ -12,8 +12,8 @@ import {auth} from '../../firebase/firebase.utils';
 const Header = ({currentUser}) => {
     return (
         <nav className="navbar white-text mt-0 navbar-expand-lg navbar-dark indigo">
-        <Link to='/'>
-            <img className="navbar-brand" src={`${logo}`} alt='logo'/>
+        <Link to='/' className="navbar-brand mr-2">
+            <img src={`${logo}`} alt='logo'/>
         </Link>
   <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText"
     aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
