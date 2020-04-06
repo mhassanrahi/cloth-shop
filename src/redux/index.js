@@ -1,6 +1,7 @@
 export {setCurrentUser} from './user/user.actions';
 export {addItem} from './cart/cart.actions';
 export {clearItemFromCart} from './cart/cart.actions';
+export {removeItem} from './cart/cart.actions';
 
 
 //Selectors

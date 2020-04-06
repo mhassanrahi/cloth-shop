@@ -13,7 +13,7 @@ import { selectCurrentUser } from '../../redux';
 const Header = ({currentUser}) => {
     return (
         <nav className="navbar white-text mt-0 navbar-expand-lg navbar-dark indigo">
-        <Link to='/' className="navbar-brand mr-2">
+        <Link to='/' className="navbar-brand">
             <img src={`${logo}`} alt='logo'/>
         </Link>
   <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText"

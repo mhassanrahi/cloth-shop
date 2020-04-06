@@ -9,9 +9,10 @@
   }
 
   .navbar-brand img {
-    max-height: 100px;
+    max-height: 50px;
   }
 
   .navbar {
-    margin: 20px 0px
+    margin: 20px 0px;
+    line-height: 40px;
   }
