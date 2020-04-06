@@ -7,6 +7,7 @@ import logo from '../../logo.svg'
 import CartIcon from '../cart-icon/cart-icon.component';
 
 import {auth} from '../../firebase/firebase.utils';
+import { selectCurrentUser } from '../../redux';
 
 
 const Header = ({currentUser}) => {
@@ -46,12 +47,9 @@ const Header = ({currentUser}) => {
             
         </li>
         <li className="nav-item">
-          <Link className="nav-link" to="/cart" >
             <CartIcon />
-          </Link>
-
         </li>
-        
+        {/* <CartIcon /> */}
       </ul>
   </div>
 </nav>
@@ -61,7 +59,8 @@ const Header = ({currentUser}) => {
 }
 
 const mapStateToProps = state => ({
-  currentUser: state.user.currentUser
+  currentUser: selectCurrentUser(state)
 })
+
 
 export default connect(mapStateToProps) (Header);

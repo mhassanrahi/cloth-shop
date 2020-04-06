@@ -1,13 +1,16 @@
 import React from 'react';
 import CartItem from '../cart-item/cart-item.component';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+
 
 import './cart-dropdown.style.css';
 import {selectCartItems} from '../../redux/'
 
-const CartDropDown = ({cartItems}) => {
+
+const CartDropDown = ({cartItems, history}) => {
     return (
-        <div className="dropdown-menu dropdown-menu-right">
+        <div className="dropdown-menu dropdown-menu-md-right">
             <div className="menu">
                 {
                     cartItems.map(cartItem =>
@@ -16,11 +19,11 @@ const CartDropDown = ({cartItems}) => {
                 }
             </div>
             {
-                (cartItems.length > 0) ? 
+                cartItems.length ? 
                 (
                 <div>
                     <div class="dropdown-divider"></div>
-                    <button className="btn btn-indigo btn-sm"> Go to checkout</button>
+                    <button onClick={()=> history.push('/checkout')} className="btn btn-indigo btn-sm"> Go to checkout</button>
                 
                 </div>)
                 :
@@ -35,4 +38,4 @@ const mapStateToProps = state => ({
     cartItems: selectCartItems(state)
 })
 
-export default connect(mapStateToProps, null)(CartDropDown);
+export default withRouter(connect(mapStateToProps, null)(CartDropDown));

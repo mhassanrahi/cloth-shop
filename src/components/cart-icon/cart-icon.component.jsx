@@ -12,7 +12,10 @@ const CartIcon = ({itemCount}) => {
                 <button type="button" class="btn btn-outline-white dropdown-toggle p-1 m-0" data-toggle="dropdown" aria-haspopup="true"
                     aria-expanded="false">
                     <i className="fas fa-shopping-basket fa-2x"> 
-                        <span className="font-weight-light"> {itemCount}</span>
+                        <span className="font-weight-light"> {
+                            itemCount ? itemCount
+                        : null
+                        }</span>
                     </i>
                 </button>
                 <CartDropDown />
