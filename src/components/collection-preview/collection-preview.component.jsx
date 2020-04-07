@@ -10,7 +10,7 @@ const CollectionPreview = ({title, items}) => {
             <div className="card-deck">
             
                 {
-                    items.filter((item, index) => index < 4).map(item => (
+                    items.filter((item, index) => index < 3).map(item => (
                         <CollectionItem key={item.id} item={item}/>
                     ))
                 }

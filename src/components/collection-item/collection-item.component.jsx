@@ -9,7 +9,7 @@ const CollectionItem = ({item, addItem}) =>
      {
          const {name, price, imageUrl} = item;
          return (
-           <div className="card mb-5">
+           <div className="card mb-4 border-dark col-md-4">
                 <div className="card-header text-center">
                         <p className="card-text font-weight-bold">{name}</p>
                 </div>
