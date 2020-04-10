@@ -1,3 +1,6 @@
+// if (process.env.NODE_ENV === 'production') {
+//     import 
+//  }
 import firebase from 'firebase/app';
 import 'firebase/firestore';
 import 'firebase/auth';
